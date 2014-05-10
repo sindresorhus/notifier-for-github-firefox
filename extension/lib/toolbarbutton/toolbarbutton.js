@@ -55,8 +55,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
       // Modifications by Sindre Sorhus
       // - Added badge
       let tbb = doc.createElementNS(NS_XUL, "toolbarbutton");
-      tbb.style.maxWidth = '16px';
-      tbb.style.position = 'relative';
       tbb.setAttribute("id", options.id);
       tbb.setAttribute("type", "button");
       tbb.setAttribute("class", "toolbarbutton-1 chromeclass-toolbar-additional");
@@ -66,9 +64,6 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
       let img = tbb.img = doc.createElementNS("http://www.w3.org/1999/xhtml","img");
       img.src = options.image;
-      img.style.maxWidth = '16px';
-      img.style.width = '16px';
-      img.style.height = '19px';
       tbb.appendChild( img );
 
       let badge = tbb.badge = doc.createElementNS("http://www.w3.org/1999/xhtml","div");
@@ -215,17 +210,15 @@ exports.ToolbarButton = function ToolbarButton(options) {
     set badge(value) {
       getToolbarButtons(function(tbb) {
         if ( value && value.text ) {
-          tbb.img.style.marginTop = '4px';
-          tbb.img.style.marginLeft = '-6px';
-          tbb.img.style.paddingRight = '6px';
+          tbb.img.setAttribute("style", "margin-top:5px");
         } else {
-          tbb.img.style.marginTop = null;
+          tbb.img.removeAttribute("style");
         }
 
         if ( value && value.text ) {
           tbb.badge.style.display = "block";
-          tbb.badge.textContent = value.text;
-          tbb.badge.setAttribute("style", "margin-top:-8px;position:relative;z-index:99;background:" + value.color + ";border-radius:3px;padding:2px;line-height:1;font-size:8px;color:white;white-space:nowrap;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2");
+          tbb.badge.textContent =  value.text;
+          tbb.badge.setAttribute("style", "margin-top:-6px;margin-right:-20px;position:relative;z-index:99;background:" + value.color + ";border-radius:3px;padding:2px;line-height:1;font-size:8px;color:white;white-space:nowrap;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2");
         } else {
           tbb.badge.style.display = "none";
         }
