@@ -1,13 +1,11 @@
-# GitHub Notifier for Firefox
+# <img src="extension/icon64.png" width="30"> GitHub Notifier
 
-> Extension that displays your GitHub notifications unread count
+> Firefox extension - Displays your GitHub notifications unread count
 
-![](screenshot.png)
+[![](screenshot.png)][install]
 
 
-## Install
-
-Install from the [Firefox Add-ons site](https://addons.mozilla.org/en-US/firefox/addon/github-notifier/).
+## [Install][install]
 
 
 ## Related
@@ -18,3 +16,6 @@ Also available on [Chrome](https://github.com/sindresorhus/github-notifier-chrom
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+
+
+[install]: https://addons.mozilla.org/en-US/firefox/addon/github-notifier/
