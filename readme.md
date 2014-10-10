@@ -10,7 +10,7 @@
 
 ## Related
 
-Also available on [Chrome](https://github.com/sindresorhus/github-notifier-chrome), [Opera](https://github.com/sindresorhus/github-notifier-opera), [Safari](https://github.com/sindresorhus/github-notifier-safari).
+Also available on [Chrome/Opera](https://github.com/sindresorhus/github-notifier-chrome) and [Safari](https://github.com/sindresorhus/github-notifier-safari).
 
 
 ## License
