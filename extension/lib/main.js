@@ -4,7 +4,7 @@ const data = require('sdk/self').data;
 const Request = require('sdk/request').Request;
 const pageWorker = require('sdk/page-worker');
 const timers = require('sdk/timers');
-const toolbarButton = require('toolbarbutton/toolbarbutton').ToolbarButton;
+const { ActionButton } = require('sdk/ui/button/action');
 
 const notifUrl = 'https://github.com/notifications';
 const updateInterval = 1000 * 60;
@@ -24,12 +24,15 @@ let worker = pageWorker.Page({
 	contentScriptFile: data.url('icon.js')
 });
 
-let tbb = toolbarButton({
+let tbb = ActionButton({
 	id: 'github-notifier',
 	label: 'GitHub Notifier',
-	tooltiptext: this.label,
-	image: data.url('icon-16.png'),
-	onCommand: function () {
+	icon: {
+		'16': './icon-16.png',
+		'32': './icon-32.png',
+		'64': './icon-64.png',
+	},
+	onClick: function (state) {
 		const tab = tabs.activeTab;
 
 		if (tab.url === 'about:blank' || tab.url === 'about:newtab' || tab.url === notifUrl) {
@@ -43,31 +46,22 @@ let tbb = toolbarButton({
 	}
 });
 
-tbb.moveTo({
-	toolbarID: 'nav-bar',
-	forceMove: false // only move from palette
-});
-
 worker.port.on('fetched-count', function (count) {
 	count = count > 999 ? '∞' : count;
 
 	if (count) {
-		tbb.tooltiptext = 'GitHub Notifier';
+		tbb.label = 'GitHub Notifier';
 
 		if (count !== '0') {
-			tbb.badge = {
-				text: count,
-				color: 'rgb(65, 131, 196)'
-			}
+			tbb.badge = count;
+			tbb.badgeColor = 'rgb(65, 131, 196)';
 		} else {
 			tbb.badge = null;
 		}
 	} else {
-		tbb.tooltiptext = 'You have to be logged into GitHub';
-		tbb.badge = {
-			text: '?',
-			color: 'rgb(166, 41, 41)'
-		}
+		tbb.label = 'You have to be logged into GitHub';
+		tbb.badge = '?';
+		tbb.badgeColor = 'rgb(166, 41, 41)';
 	}
 });
 
