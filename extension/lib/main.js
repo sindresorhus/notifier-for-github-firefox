@@ -33,13 +33,15 @@ let tbb = ActionButton({
 		'64': './icon-64.png',
 	},
 	onClick: function (state) {
-		const tab = tabs.activeTab;
-
-		if (tab.url === 'about:blank' || tab.url === 'about:newtab' || tab.url === notifUrl) {
-			tab.url = notifUrl;
-		} else {
-			tabs.open(notifUrl);
+		let found = false;
+		for (let otherTab of tabs) {
+			if (found = otherTab.url === notifUrl) {
+				otherTab.activate();
+				otherTab.reload();
+				break;
+			}
 		}
+		found || tabs.open(notifUrl);
 
 		timers.setTimeout(update, 1000 * 20);
 		update();
