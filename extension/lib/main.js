@@ -34,14 +34,21 @@ let tbb = ActionButton({
 	},
 	onClick: function (state) {
 		let found = false;
+		const tab = tabs.activeTab;
 		for (let otherTab of tabs) {
-			if (found = otherTab.url === notifUrl) {
+			if (found = (otherTab.url === notifUrl && otherTab.window == tab.window)) {
 				otherTab.activate();
 				otherTab.reload();
 				break;
 			}
 		}
-		found || tabs.open(notifUrl);
+		if (!found) {
+			if (tab.url === 'about:blank' || tab.url === 'about:newtab' || tab.url === notifUrl) {
+				tab.url = notifUrl;
+			} else {
+				tabs.open(notifUrl);
+			}
+		}
 
 		timers.setTimeout(update, 1000 * 20);
 		update();
