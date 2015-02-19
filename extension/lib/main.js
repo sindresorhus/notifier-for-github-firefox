@@ -34,17 +34,17 @@ let tbb = ActionButton({
 	},
 	onClick: function (state) {
 		let found = false;
-		const tab = tabs.activeTab;
-		for (let otherTab of tabs) {
-			if (found = (otherTab.url === notifUrl && otherTab.window == tab.window)) {
-				otherTab.activate();
-				otherTab.reload();
+		const currentTab = tabs.activeTab;
+		for (let tab of tabs) {
+			if (found = (tab.url === notifUrl && tab.window == currentTab.window)) {
+				tab.activate();
+				tab.reload();
 				break;
 			}
 		}
 		if (!found) {
-			if (tab.url === 'about:blank' || tab.url === 'about:newtab' || tab.url === notifUrl) {
-				tab.url = notifUrl;
+			if (currentTab.url === 'about:blank' || currentTab.url === 'about:newtab') {
+				currentTab.url = notifUrl;
 			} else {
 				tabs.open(notifUrl);
 			}
