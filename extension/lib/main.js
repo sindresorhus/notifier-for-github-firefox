@@ -36,7 +36,7 @@ let tbb = ActionButton({
 		let found = false;
 		const currentTab = tabs.activeTab;
 		for (let tab of tabs) {
-			if (found = (tab.url === notifUrl && tab.window == currentTab.window)) {
+			if (found = (tab.url === notifUrl && tab.window === currentTab.window)) {
 				tab.activate();
 				tab.reload();
 				break;
