@@ -33,12 +33,21 @@ let tbb = ActionButton({
 		'64': './icon-64.png',
 	},
 	onClick: function (state) {
-		const tab = tabs.activeTab;
-
-		if (tab.url === 'about:blank' || tab.url === 'about:newtab' || tab.url === notifUrl) {
-			tab.url = notifUrl;
-		} else {
-			tabs.open(notifUrl);
+		let found = false;
+		const currentTab = tabs.activeTab;
+		for (let tab of tabs) {
+			if (found = (tab.url === notifUrl && tab.window === currentTab.window)) {
+				tab.activate();
+				tab.reload();
+				break;
+			}
+		}
+		if (!found) {
+			if (currentTab.url === 'about:blank' || currentTab.url === 'about:newtab') {
+				currentTab.url = notifUrl;
+			} else {
+				tabs.open(notifUrl);
+			}
 		}
 
 		timers.setTimeout(update, 1000 * 20);
