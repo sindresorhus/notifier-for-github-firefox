@@ -25,8 +25,8 @@ let worker = pageWorker.Page({
 });
 
 let tbb = ActionButton({
-	id: 'github-notifier',
-	label: 'GitHub Notifier',
+	id: 'notifier-for-github',
+	label: 'Notifier for GitHub',
 	icon: {
 		'16': './icon-16.png',
 		'32': './icon-32.png',
@@ -59,7 +59,7 @@ worker.port.on('fetched-count', function (count) {
 	count = count > 999 ? '∞' : count;
 
 	if (count) {
-		tbb.label = 'GitHub Notifier';
+		tbb.label = 'Notifier for GitHub';
 
 		if (count !== '0') {
 			tbb.badge = count;
