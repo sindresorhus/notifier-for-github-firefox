@@ -1,3 +1,7 @@
+# Deprecated in favor of [notifier-for-github-chrome](https://github.com/sindresorhus/notifier-for-github-chrome), as Firefox 48 will be able to run Chrome extensions.
+
+---
+
 # Notifier for GitHub
 
 > Firefox extension - Displays your GitHub notifications unread count
@@ -15,7 +19,7 @@ Also available on [Chrome](https://github.com/sindresorhus/notifier-for-github-c
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
 
 
 [install]: https://addons.mozilla.org/en-US/firefox/addon/notifier-for-github/
