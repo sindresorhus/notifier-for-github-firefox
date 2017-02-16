@@ -5,6 +5,7 @@ const Request = require('sdk/request').Request;
 const pageWorker = require('sdk/page-worker');
 const timers = require('sdk/timers');
 const { ActionButton } = require('sdk/ui/button/action');
+const notifications = require("sdk/notifications");
 
 const notifUrl = 'https://github.com/notifications';
 const updateInterval = 1000 * 60;
@@ -55,19 +56,32 @@ let tbb = ActionButton({
 	}
 });
 
-worker.port.on('fetched-count', function (count) {
+worker.port.on('fetched', function (count, issue) {
 	count = count > 999 ? '∞' : count;
 
-	if (count) {
+	if (count && count!=tbb.badge) {
 		tbb.label = 'Notifier for GitHub';
 
 		if (count !== '0') {
+			if(issue!=null && (tbb.badge=='?' || tbb.badge==null || count>tbb.badge)){
+				issue = JSON.parse(issue);
+
+				notifications.notify({
+					title: "New notification on GitHub",
+					text: "At "+issue.repo+": "+issue.participants+" in issue '"+issue.title+"'",
+					iconURL: issue.firstAvatar,
+					onClick: function () {
+						tabs.open(issue.url);
+					}
+				});
+			}
+
 			tbb.badge = count;
 			tbb.badgeColor = 'rgb(65, 131, 196)';
 		} else {
 			tbb.badge = null;
 		}
-	} else {
+	} else if(!count) {
 		tbb.label = 'You have to be logged into GitHub';
 		tbb.badge = '?';
 		tbb.badgeColor = 'rgb(166, 41, 41)';
